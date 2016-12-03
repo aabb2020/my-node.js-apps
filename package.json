@@ -1,0 +1,24 @@
+{
+  "name": "send-mail-forms-in-nodejs using mailgun",
+  "version": "1.0.0",
+  "description": "This project helps you sending emails in Node.js using mailgun",
+  "main": "send_mail.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node send_mail.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aabb2020/my-node.js-apps.git"
+  },
+  "author": "aabb2020",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/aabb2020/my-node.js-apps/issues"
+  },
+  "homepage": "https://github.com/aabb2020/my-node.js-apps",
+  "dependencies": {
+    "formidable": "^1.0.17"
+  },
+  "devDependencies": {}
+}
