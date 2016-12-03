@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <!-- <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css"> -->
+    <title>Send Email HW</title>
+    <script>
+    window.onload = function(){
+      document.getElementById("SendMailForm").onsubmit = function(e) {
+
+      	e.preventDefault();
+
+      	var f = e.target,
+      		formData = new FormData(f),
+      		xhr = new XMLHttpRequest();
+          var Progress = setInterval(xhr.upload.onprogress,50);
+        xhr.upload.onprogress = function(e){
+          var percenteg = ((e.loaded/e.total)*100);
+          document.getElementById("progresbar").style.width = percenteg+"%";
+          if(percenteg==100){
+            clearInterval(Progress);
+			
+          }
+        };
+        xhr.onload = function(e){
+          if(typeof e.explicitOriginalTarget != "undefined"){
+            var res = e.explicitOriginalTarget.response;
+            console.log(res);
+            console.log(JSON.parse(res));
+            var jsonData = JSON.parse(res);
+            if(typeof jsonData.fields.id != "undefined"){
+              if(jsonData.fields.id!=""){
+                alert("Mail Sent :)");
+              }
+            }
+          }
+        };
+      	xhr.open("POST", f.action);
+      	xhr.send(formData);
+      }
+    };
+    </script>
+    <style>
+    td { padding: 4px; border: 1px solid #DDD; text-align:left;}
+    
+    input[type="text"] { width:300px;  font-family: Verdana; font-Size: Small;}
+    
+	textarea { height:160px;width: 96%}
+    
+	input[type="submit"] {float: left; font-weight: bold; height: 30px;}
+	
+	th { background: #ffeedd; text-align:center;  font-weight:bold; font-size:14pt; padding:6px }
+	
+	tr td:first-child {width:100px;}
+	
+	table { border-collapse: collapse; width: 80%; margin: 16px auto;border: 1px solid #DDD; padding: 4px }
+	
+    .progbar1{width:100%;height:1.5em;position:relative;background-color:#f1f1f1;margin-top:7px;}
+	
+    .barsize{font-size:15px!important}
+	
+    .progbar2 {background-color:;height:100%;position:absolute;line-height:inherit}
+
+    </style>
+  </head>
+   <body>
+ 
+      <form id="SendMailForm" action="" method="post" enctype="multipart/form-data">
+        <table>
+		<tr><th colSpan="2"   >Send Mail with Attachment</th></tr>
+		
+          <tr>
+              <td>To :</td>
+              <td><input type="text" name="email" placeholder="Email"/></td>
+          </tr>
+		  
+          <tr>
+              <td>Subject :</td>
+              <td><input type="text" name="subject" placeholder="Subject"/></td>
+          </tr>
+         
+          <tr>
+              <td>Message :</td>
+              <td><textarea name="message"></textarea></td>
+          </tr>
+		  
+		  <tr>
+              <td>Attachment :</td>
+              <td>
+                <input type="file" name="attachment" />
+               
+				<div id = "bybar" class="progbar1  barsize">
+                 <div id="progbar2" class="progbar2" style = ""></div>
+                </div>
+              </td>
+          </tr>
+          <tr>
+            
+              <td colSpan="2"><input type="submit" name="send_mail" onclick = "move()" value="Send Email"/></td>
+			  
+			   <script>
+					function move() {
+						var elem = document.getElementById("bybar");   
+						var width = 10;
+						var id = setInterval(frame, 10);
+					function frame() {
+						if (width >= 100) {
+							clearInterval(id);
+							} else {
+							width++; 
+							elem.style.width = width + '%'; 
+							document.getElementById("progbar2").innerHTML = width * 1  + '%';
+							}
+									}
+						}
+			   </script>
+          </tr>
+        </table>
+      </form>
+    
+   </body>
+</html>
